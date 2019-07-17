@@ -1,6 +1,7 @@
 import React from 'react'
 import { withFormik, Form, Field} from "formik"
 
+
 function UserForm() {
     // const [user, setUser] = useState({ name: "", email: "", password: "", terms : ""})
 
@@ -16,37 +17,46 @@ function UserForm() {
 // }
 
 return (
-    <div>
-        {console.log(user)}
-        <form onSubmit={event => handleSubmit(event)}>
-            <label>
+        <Form>
                 Name:
-                <input type="text" 
+                <Field type="text" 
                         name="name" 
-                        onChange={event => handleChange(event)} />
-            </label>
-            <label>
+                        placeholder="Name"
+                         />
                 Email:
-                <input type="text" 
+                <Field type="text" 
                         name="email" 
-                        onChange={event => handleChange(event)} />
-            </label>
-            <label>
-                Password:
-                <input type="text" 
-                        name="password" 
-                        onChange={event => handleChange(event)} />
-            </label>
-            <label>
-                Terms and Conditions:
-                <input type="checkbox" 
-                        name="terms" 
-                        onChange={event => handleChange(event)} />
-            </label>
-            <button>Submit!</button>
-        </form>
+                        placeholder="Email"
 
-    </div>
-)
+                         />
+                Password:
+                <Field type="password" 
+                        name="password" 
+                        placeholder="Password"
+
+                         />
+                Terms and Conditions:
+                <Field type="checkbox" 
+                        name="terms" 
+                         />
+            <button>Submit!</button>
+        </Form>
+    )
 }
-export default UserForm
+
+const FormikUserForm = withFormik({
+    mapPropsToValues({ name, email, password, terms}) {
+        return {
+        name: name || "",
+        email: email || "",
+        password: password || "",
+        terms: terms || "",
+        }
+    },
+
+    handleSubmit(values) {
+        console.log(values)
+        //This is where you do form submissions codes, HTTP requests, etc.
+    }
+})(UserForm) 
+export default FormikUserForm
