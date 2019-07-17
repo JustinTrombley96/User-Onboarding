@@ -7,6 +7,7 @@ import axios from "axios"
 function UserForm({ values, errors, touched }) {
 
 return (
+    <>
         <Form>
             <div>
             {touched.name && errors.name && <h3>{errors.name}</h3>} 
@@ -50,6 +51,7 @@ return (
             </div>
             <button>Submit!</button>
         </Form>
+        </>
     )
 }
 
@@ -92,6 +94,13 @@ const FormikUserForm = withFormik({
                         console.log("Success", res) //Data created successfully and logged to console
                         resetForm();
                         setSubmitting(false)
+                        {window.alert(
+                            res.data.name + ' ' +
+                            res.data.email + ' ' +
+                            res.data.password + ' ' +
+                            res.data.terms
+                            )}
+
                     })
                     .catch(err => {
                         console.log(err) //There was an aerror creating the data and logs to console
